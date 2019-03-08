@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React Life Cycle</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script src="https://unpkg.com/react@16/umd/react.development.js"         crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"           crossorigin></script>
+
+    <script src="https://unpkg.com/babel-standalone@6.25/babel.min.js"></script>
+  </head>
+  <body>
+    <h1>React Inline Styles</h1>
+    
+    
+    <div id='color'               style='background-color:lightblue'></div> 
+    <div id='style_object'></div>
+    
+    <script type='text/babel'>
+      // 37. Introducing Inline Styles
+      class Colorful extends React.Component {
+        render() {
+          return (
+            <div style={{color: "red", fontSize: 72}}>Big Red</div>
+          );
+        }
+      };
+      ReactDOM.render(<Colorful />, document.getElementById('color'));
+      
+      // 38. Add Inline Styles in React
+      const styles = {                    // must be object, NOT STRING!
+        color:           "purple", 
+        fontSize:        40, 
+        border:          "2px solid purple",
+        backgroundColor: "lightgreen"
+      };
+ 
+      // change code above this line
+      class NewColorful extends React.Component {
+        render() {
+          // change code below this line
+          return(
+            <div style={styles}>Style Me!</div>
+          );
+          // change code above this line
+        }
+      };
+      ReactDOM.render(<NewColorful />, document.getElementById('style_object'));
+    </script>
+  </body>
+</html>
+
+        

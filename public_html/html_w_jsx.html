@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JSX Elements</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>
+
+    
+    <script src="https://unpkg.com/babel-standalone@6.25/babel.min.js"></script>
+  </head>
+  <body>
+    <h1>JSX Elements (freeCodeCamp)</h1>
+    <div id='simple'></div>
+    <div id='complex'></div>
+    <div id='jsx_class'></div>
+    <div id='my_component'></div>
+    
+    <script type='text/babel'>
+      // 01. Simple JSX 
+      const simpleJSX = <h3 style={{color: "red", border: "2px solid red"}}>Simple JSX Element</h3>;
+      ReactDOM.render(simpleJSX, document.getElementById('simple'));
+      
+      // 02. Complex JSX 
+      const complexJSX = (
+        <div>
+          <h3>Complex JSX Element</h3>
+          <p>Section</p>
+          <ul>
+            <li>An item</li>
+            <li>Another item</li>
+            <li>A third item</li>
+          </ul>
+        </div>);
+      ReactDOM.render(complexJSX, document.getElementById('complex'));
+      
+      // 05. Define an HTML Class in JSX
+      const classJSX = (
+        <div className = 'jsx_class'>
+          <h3>Add a classJSX to this div</h3>
+        </div>
+      );
+      ReactDOM.render(classJSX, document.getElementById('jsx_class'));
+      
+    </script>
+  </body>
+</html>

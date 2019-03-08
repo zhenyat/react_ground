@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+  <head>
+    <title>Components</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6.25/babel.min.js"></script>
+  </head>
+  <body>
+    <h1>Components (freeCodeCamp)</h1>
+
+    <div id='fuinctional_component'></div>
+    <div id='class_component'></div>
+    <div id='types_of_food'></div>
+    
+    <script type='text/babel'>     
+      // 07. Create a Stateless Functional Component
+      const FunctionComponent = function() {
+        return(
+          <div className='my_component'>
+          <h3>Stateless Functional Component</h3>
+          </div>
+        );
+      };
+      ReactDOM.render(<FunctionComponent/>, document.getElementById('fuinctional_component'));
+      
+      // 08. Create a React Component
+      class ClassComponent extends React.Component {
+        constructor(props) {
+          super(props);
+        }
+        render() {
+          return(
+                  <div>
+                  <h3>Class Component</h3>
+                  </div>
+                );
+        }
+      }
+      ReactDOM.render(<ClassComponent/>, document.getElementById('class_component'));
+      
+      // 10. Rendering nested Components
+      const TypesOfFruit = () => {
+        return(
+          <div>
+            <h2>Fruites:</h2>
+            <ul>
+              <li>Apples</li>
+              <li>Blueberries</li>
+              <li>Strawberries</li>
+              <li>Bananas</li>
+            </ul>
+          </div>
+        );
+      };
+
+      const Fruits = () => {
+        return (
+          <div>
+            { /* change code below this line */ }
+            <TypesOfFruit />
+            { /* change code above this line */ }
+          </div>
+        );
+      };
+      
+      class TypesOfFood extends React.Component {
+        constructor(props) {
+          super(props);
+        }
+
+        render() {
+          return (
+            <div>
+              <h1>Types of Food:</h1>
+              { /* change code below this line */ }
+              < Fruits />
+              { /* change code above this line */ }
+            </div>
+          );
+        }
+      };
+      ReactDOM.render(<TypesOfFood/>, document.getElementById('types_of_food'));
+    </script>
+  </body>
+</html>

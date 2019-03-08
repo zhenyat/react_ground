@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React Props</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script src="https://unpkg.com/react@16/umd/react.development.js"         crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"           crossorigin></script>
+
+    <script src="https://unpkg.com/babel-standalone@6.25/babel.min.js"></script>
+  </head>
+  <body>
+    <h1>React Props (freeCodeCamp)</h1>
+    <div id='current_date' style='background-color:lightblue'></div>
+    <div id='todo'         style='background-color:lightyellow'></div>
+    <div id='outfit'       style='background-color:lightgreen'></div>
+    <div id='items'        style='background-color:pink'></div>
+    <div id='quantity'     style='background-color:cyan'></div>
+    <div id='prop_types'   style='background-color:yellowgreen'></div>
+    <div id='new_pwd'      style='background-color:greenyellow'></div>
+    <div id='camper'       style='background-color:violet'></div>
+
+    <script type='text/babel'>
+      // 14. Pass Props to a Stateless Functional Component
+//    const CurrentDate = (props) => {        // alternative notation
+      const CurrentDate = function(props) {
+        return (
+          <div>
+            <p>The current date is: {props.date}</p>
+          </div>
+        );
+      };     
+      class Calendar extends React.Component {
+        constructor(props) {
+          super(props);
+        }
+        render() {
+          return (
+            <div>
+              <h3>What date is it?</h3>
+              <CurrentDate date = {Date()}/>
+            </div>
+          );
+        }
+      };
+      ReactDOM.render(<Calendar />, document.getElementById('current_date'));
+      
+      // 15. Pass an Array as Props
+      const List= (props) => {
+        return <p>{props.tasks}</p>;
+//        return <p>{props.tasks.join(', ')}</p> // error: Cannot read property 'join' of undefined
+                                                 // Workout: usr `join` in ToDo component
+      };
+
+      class ToDo extends React.Component {
+        constructor(props) {
+          super(props);
+        }
+        render() {
+          return (
+            <div>
+              <h1>To Do Lists</h1>
+              <h2>Today</h2>
+              <List tasks={["walk dog", "workout"].join(', ')}/>
+              <List/>
+              <h2>Tomorrow</h2>
+              <List tasks={["write report", "visit dentist", "meet friends"].join(', ')}/>
+            </div>
+          );
+        }
+      };
+      ReactDOM.render(<ToDo />, document.getElementById('todo'));
+      
+      // 15. The same topic from the preliminary course
+      const Selections = (props) => {
+        return(
+          <div>
+            <strong>A {props.attire[2]} day. </strong>
+            I'm going to wear a {props.shirts[1]}, {props.pants[4]} and {props.shoes[1]}
+          </div>   
+        );
+      };
+      class OutfitSelector extends React.Component {
+        constructor(props) {
+          super(props);
+        }
+        render() {
+          return(
+            <div>
+            <h1>What to Wear?</h1>
+            <h3>Today is:</h3>
+            <Selections
+              attire={['casual', 'formal', 'super-casual']}
+              shirts={['t-shirt', 'sweatshirt', 'collared shirt']}
+              pants= {['slacks', 'blue jeans', 'khakis', 'shorts', 'pijama pants']}
+              shoes= {['dress shoes', 'slippers', 'sneakers']}
+            />
+            <h3>Tomorrow is:</h3>
+            <Selections
+              attire={['formal', 'super-casual', 'casual']}
+              shirts={['collared shirt', 't-shirt', 'sweatshirt']}
+              pants= {['slacks', 'khakis', 'shorts', 'pijama pants', 'blue jeans']}
+              shoes= {['dress shoes', 'sneakers', 'slippers']}
+            />
+            </div>      
+          );
+        }
+      };
+      ReactDOM.render(<OutfitSelector />, document.getElementById('outfit'));
+      
+      // 16. Use Default Props
+      const ShoppingCart = (props) => {
+        return (
+          <div>
+            <h1>Shopping Cart Component</h1>
+            <p>Items: {props.items}</p>
+          </div>
+        );
+      };
+      ShoppingCart.defaultProps = {items: 0};
+      ReactDOM.render(<ShoppingCart />, document.getElementById('items'));
+      
+      // 17. Override Default Props
+      const Items = (props) => {
+        return(
+            <h1>Current qty of Items in Cart: {props.quantity}</h1>    
+        );
+      };
+      Items.defaultProps = {quantity: 0};
+      
+      class NewShoppingCart extends React.Component {
+        constructor(props) {
+          super(props);
+        }
+        render() {
+          return(<Items quantity={10} />);
+        }
+      };
+      ReactDOM.render(<NewShoppingCart />, document.getElementById('quantity'));
+      
+      // 18. Use PropTypes to Define the Props You Expect  
+      //  !!! Not working: ReferenceError: PropTypes is not defined
+      //      Solution:    Add script tag with: src="https://unpkg.com/prop-types@15.7.2/prop-types.js"
+      
+      const MoreItems = (props) => {
+        return <h1>PropTypes: Current Quantity of Items in Cart: {props.quantity}</h1>;
+      };
+
+      // change code below this line
+      MoreItems.propTypes = {quantity: PropTypes.number};  // or: {quantity: PropTypes.number.isRequired};
+      // change code above this line
+
+      MoreItems.defaultProps = {
+        quantity: 0 
+      };
+
+      class MoreShoppingCart extends React.Component {
+        constructor(props) {
+          super(props);
+        }
+        render() {
+          return <MoreItems quantity={20}/>;
+        }
+      };
+      ReactDOM.render(<MoreShoppingCart />, document.getElementById('prop_types'));
+      
+      // 19. Access Props Using this.props
+      class ReturnTempPassword extends React.Component {
+        constructor(props) {
+          super(props);
+        }
+        render() {
+          return(
+            <div>
+              <p>Your temporary password is: <strong>{this.props.tempPassword}</strong></p>
+            </div>
+          );
+        }
+      }
+      class ResetPassword extends React.Component {
+        constructor(props) {
+          super(props);
+        }
+        render() {
+          return(
+            <div>
+              <h2>Reset Password</h2>
+              <h3>We've generated a new temporary password for you.</h3>
+              <h3>Please reset this password from your account settings ASAP.</h3>
+              <ReturnTempPassword tempPassword="MYpassword" />
+            </div>
+          );
+        }
+      }
+      ReactDOM.render(<ResetPassword />, document.getElementById('new_pwd'));
+      
+      // 20. Review Using Props with Stateless Functional Components
+      //     Good Practice: to use Stateless Components if possible!
+      const Camper = (props) => <p>Welcome, {props.name}!</p>;
+      
+      class CampSite extends React.Component {
+        constructor(props) {
+          super(props);
+        }
+        render() {
+          return (
+            <div>
+              <Camper/>
+            </div>
+          );
+        }
+      };
+      Camper.propTypes    = {name: PropTypes.string};
+      Camper.defaultProps = {name: 'CamperBot'};
+
+      ReactDOM.render(<CampSite />,document.getElementById('camper'));
+    </script>
+  </body>
+</html>
